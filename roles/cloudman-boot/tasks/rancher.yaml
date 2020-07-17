@@ -10,7 +10,7 @@
 
 - name: Pull and run the Rancher/server container
   shell: |
-    docker run \
+    docker run -d \
       --restart unless-stopped
       -p "{{ rancher_port_http }}:80" \
       -p "{{ rancher_port }}:443" \
