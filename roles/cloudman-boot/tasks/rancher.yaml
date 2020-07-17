@@ -9,14 +9,14 @@
     verbosity: 2
 
 - name: Pull and run the Rancher/server container
-  docker_container:
-      name: "{{ rancher_name }}"
-      image: rancher/rancher:{{ rancher_version }}
-      restart_policy: unless-stopped
-      ports:
-        - "{{ rancher_port_http }}:80"
-        - "{{ rancher_port }}:443"
-      command: "--acme-domain {{ rancher_server }}"
+  shell: |
+    docker run \
+      --restart unless-stopped
+      -p "{{ rancher_port_http }}:80" \
+      -p "{{ rancher_port }}:443" \
+      --name "{{ rancher_name }}" \
+      "rancher/rancher:{{ rancher_version }}" \
+      --acme-domain "{{ rancher_server }}"
 
 - debug: msg="Using rancher_server address {{ rancher_server }}"
 
