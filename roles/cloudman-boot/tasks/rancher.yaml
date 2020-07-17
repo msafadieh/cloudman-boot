@@ -16,6 +16,7 @@
       ports:
         - "{{ rancher_port_http }}:80"
         - "{{ rancher_port }}:443"
+      command: "--acme-domain {{ rancher_server }}"
 
 - debug: msg="Using rancher_server address {{ rancher_server }}"
 
@@ -50,7 +51,7 @@
     body:
       username: admin
       password: "{{ rancher_password }}"
-    validate_certs: no
+    validate_certs: yes
     status_code: 201
     return_content: yes
   register: login_response
